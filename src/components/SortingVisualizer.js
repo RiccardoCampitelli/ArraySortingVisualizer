@@ -1,4 +1,5 @@
 import React from "react";
+import uuid from "uuid";
 
 import styled from "styled-components";
 
@@ -9,19 +10,17 @@ const BarsContainer = styled.div`
 `;
 
 const Bar = styled.div`
-
-height: ${props => props.height/10 + "%" || 0};
-width: 2px;
-margin-right: 2px;
-background-color: lightblue;
-
+  height: ${props => props.height / 10 + "%" || 0};
+  width: 2px;
+  margin-right: 2px;
+  background-color: lightblue;
 `;
 
-function SortingVisualizer({array}) {
+function SortingVisualizer({ array }) {
   return (
     <BarsContainer>
       {array.map(bar => (
-        <Bar height={bar} key={bar}/>
+        <Bar height={bar} key={uuid()} />
       ))}
     </BarsContainer>
   );
