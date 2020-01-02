@@ -23,22 +23,43 @@ const ButtonSection = styled.div`
   width: ${props => props.width || undefined};
 `;
 
-function AppBar({ randomizeArray }) {
-
-
-
-
+function AppBar({
+  randomizeArray,
+  sortArray,
+  selectedAlgorithm,
+  setSelectedAlgorithm
+}) {
   return (
     <AppBarContainer>
-      <ButtonSection >
+      <ButtonSection>
         <Button onClick={randomizeArray}>Randomize</Button>
-        <Button onClick={() => console.log("sorting")}>Sort</Button>
+        <Button onClick={sortArray}>Sort</Button>
       </ButtonSection>
       <ButtonSection width="70%">
-        <Button selected={true}>Merge Sort</Button>
-        <Button>Quick Sort</Button>
-        <Button>Heap Sort</Button>
-        <Button>Bubble Sort</Button>
+        <Button
+          selected={selectedAlgorithm === "mergeSort"}
+          onClick={() => setSelectedAlgorithm("mergeSort")}
+        >
+          Merge Sort
+        </Button>
+        <Button
+          selected={selectedAlgorithm === "quickSort"}
+          onClick={() => setSelectedAlgorithm("quickSort")}
+        >
+          Quick Sort
+        </Button>
+        <Button
+          selected={selectedAlgorithm === "heapSort"}
+          onClick={() => setSelectedAlgorithm("heapSort")}
+        >
+          Heap Sort
+        </Button>
+        <Button
+          selected={selectedAlgorithm === "bubbleSort"}
+          onClick={() => setSelectedAlgorithm("bubbleSort")}
+        >
+          Bubble Sort
+        </Button>
       </ButtonSection>
     </AppBarContainer>
   );
