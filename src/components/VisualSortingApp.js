@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AppBar from "./AppBar";
 
 import styled from "styled-components";
 import SortingVisualizer from "./SortingVisualizer";
 import sortingAlgorithms from "../logic/sortingAlgorithms";
+import { arraysAreEqual } from "../logic/util";
 
-
+const ARRAY_LENGTH = 100;
+const MIN_VALUE = 5;
+const MAX_VALUE = 1000;
 
 const generateRandomIntFromInterval = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
@@ -19,27 +22,75 @@ function generateRandomArray(length, minVal, maxVal) {
 }
 
 function VisualSortingApp() {
-  const [array, setArray] = useState(generateRandomArray(100, 5, 1000));
+  const [array, setArray] = useState(
+    generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE)
+  );
 
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("mergeSort");
+  const [highlightedBars, setHighlightedBars] = useState([]);
+  const [animationIndex, setAnimationIndex] = useState(0);
 
-  function generateArray() {
-    setArray(generateRandomArray(100, 5, 1000));
+  const animationsCount = useRef(0);
+
+  function randomizeArray() {
+    setArray(generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE));
+    setHighlightedBars([]);
+    animationsCount.current = 0;
+    setAnimationIndex(0)
   }
 
-  function sortArray(){
-    sortingAlgorithms[selectedAlgorithm]();
+  function sortArray() {
+    const newArray = sortingAlgorithms[selectedAlgorithm]([...array], swapBars);
+
+    const sortedJsArray = [...array].sort((a, b) => a - b);
+
+    //For testing
+    console.log(arraysAreEqual(newArray, sortedJsArray));
+
+    // setArray([...newArray]);
+  }
+
+  function swapBars([index1, index2]) {
+    const currentAnimationCycle = animationsCount.current;
+    animationsCount.current++;
+
+    const animationDelay = animationsCount.current * 100;
+
+
+
+    setTimeout(() => {
+      setHighlightedBars(old => [...old, [index1, index2]]);
+
+      setTimeout(() => {
+        setAnimationIndex(currentAnimationCycle)
+
+        setArray(old => {
+          const newArray = [...old];
+          const temp = newArray[index1];
+
+          newArray[index1] = newArray[index2];
+          newArray[index2] = temp;
+
+          return newArray;
+        });
+
+      }, animationDelay + 100);
+    }, animationDelay);
   }
 
   return (
     <div>
       <AppBar
-        randomizeArray={generateArray}
+        randomizeArray={randomizeArray}
         sortArray={sortArray}
         selectedAlgorithm={selectedAlgorithm}
         setSelectedAlgorithm={setSelectedAlgorithm}
       />
-      <SortingVisualizer array={array} />
+      <SortingVisualizer
+        array={array}
+        highlightedBars={highlightedBars}
+        animationIndex={animationIndex}
+      />
     </div>
   );
 }
