@@ -10,6 +10,8 @@ const ARRAY_LENGTH = 100;
 const MIN_VALUE = 5;
 const MAX_VALUE = 1000;
 
+const ANIMATION_SPEED = 20;
+
 const generateRandomIntFromInterval = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -54,7 +56,7 @@ function VisualSortingApp() {
     const currentAnimationCycle = animationsCount.current;
     animationsCount.current++;
 
-    const animationDelay = animationsCount.current * 100;
+    const animationDelay = animationsCount.current * ANIMATION_SPEED;
 
     setTimeout(() => {
       setHighlightedBars(old => [...old, [index1, index2]]);
@@ -79,7 +81,7 @@ function VisualSortingApp() {
           animationsCount.current = 0;
           setAnimationIndex(0);
         }
-      }, animationDelay + 100);
+      }, animationDelay + ANIMATION_SPEED);
     }, animationDelay);
   }
 
