@@ -29,6 +29,7 @@ function VisualSortingApp() {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("mergeSort");
   const [highlightedBars, setHighlightedBars] = useState([]);
   const [animationIndex, setAnimationIndex] = useState(0);
+  const [isSorted, setIsSorted] = useState(false);
 
   const animationsCount = useRef(0);
 
@@ -37,6 +38,7 @@ function VisualSortingApp() {
     setHighlightedBars([]);
     animationsCount.current = 0;
     setAnimationIndex(0);
+    setIsSorted(false);
   }
 
   function sortArray() {
@@ -46,8 +48,6 @@ function VisualSortingApp() {
 
     //For testing
     console.log(arraysAreEqual(newArray, sortedJsArray));
-
-    // setArray([...newArray]);
   }
 
   function swapBars([index1, index2]) {
@@ -61,7 +61,8 @@ function VisualSortingApp() {
 
       setTimeout(() => {
         setAnimationIndex(currentAnimationCycle);
-        console.log(currentAnimationCycle, animationsCount.current);
+
+        // console.log(currentAnimationCycle, animationsCount.current);
         setArray(old => {
           const newArray = [...old];
           const temp = newArray[index1];
@@ -73,6 +74,7 @@ function VisualSortingApp() {
         });
 
         if (currentAnimationCycle === animationsCount.current - 1) {
+          setIsSorted(true);
           setHighlightedBars([]);
           animationsCount.current = 0;
           setAnimationIndex(0);
@@ -93,6 +95,7 @@ function VisualSortingApp() {
         array={array}
         highlightedBars={highlightedBars}
         animationIndex={animationIndex}
+        isSorted={isSorted}
       />
     </div>
   );
