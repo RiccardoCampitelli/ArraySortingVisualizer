@@ -36,7 +36,7 @@ function VisualSortingApp() {
     setArray(generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE));
     setHighlightedBars([]);
     animationsCount.current = 0;
-    setAnimationIndex(0)
+    setAnimationIndex(0);
   }
 
   function sortArray() {
@@ -56,14 +56,12 @@ function VisualSortingApp() {
 
     const animationDelay = animationsCount.current * 100;
 
-
-
     setTimeout(() => {
       setHighlightedBars(old => [...old, [index1, index2]]);
 
       setTimeout(() => {
-        setAnimationIndex(currentAnimationCycle)
-
+        setAnimationIndex(currentAnimationCycle);
+        console.log(currentAnimationCycle, animationsCount.current);
         setArray(old => {
           const newArray = [...old];
           const temp = newArray[index1];
@@ -74,6 +72,11 @@ function VisualSortingApp() {
           return newArray;
         });
 
+        if (currentAnimationCycle === animationsCount.current - 1) {
+          setHighlightedBars([]);
+          animationsCount.current = 0;
+          setAnimationIndex(0);
+        }
       }, animationDelay + 100);
     }, animationDelay);
   }

@@ -8,7 +8,8 @@ const BarsContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  height: 95vh;
+  height: 90vh;
+  padding-bottom: 5vh;
 `;
 
 const Bar = styled.div.attrs(({ height, selected }) => ({
@@ -17,9 +18,8 @@ const Bar = styled.div.attrs(({ height, selected }) => ({
     backgroundColor: selected ? "pink" : "lightblue"
   }
 }))`
-  width: 3px;
-  margin-right: 3px;
-  /* background-color: lightblue; */
+  width: 5px;
+  margin-right: 5px;
 `;
 
 function SortingVisualizer({ array, highlightedBars, animationIndex }) {
