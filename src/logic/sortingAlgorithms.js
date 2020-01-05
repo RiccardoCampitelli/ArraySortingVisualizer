@@ -1,9 +1,4 @@
-const sortingAlgorithms = {
-  mergeSort,
-  quickSort,
-  heapSort,
-  bubbleSort
-};
+
 
 function mergeSort(array) {
   const newArray = [...array];
@@ -85,5 +80,14 @@ function bubbleSort(array, swapBars) {
 
   return [...array];
 }
+
+
+const sortingAlgorithms = {
+  mergeSort,
+  quickSort,
+  heapSort,
+  bubbleSort
+};
+
 
 export default sortingAlgorithms;

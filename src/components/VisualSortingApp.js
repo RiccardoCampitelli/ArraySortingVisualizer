@@ -6,11 +6,13 @@ import SortingVisualizer from "./SortingVisualizer";
 import sortingAlgorithms from "../logic/sortingAlgorithms";
 import { arraysAreEqual } from "../logic/util";
 
+import useInterval from "../hooks/useInterval";
+
 const ARRAY_LENGTH = 100;
 const MIN_VALUE = 5;
 const MAX_VALUE = 1000;
 
-const ANIMATION_SPEED = 20;
+const ANIMATION_SPEED = 25;
 
 const generateRandomIntFromInterval = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
@@ -32,6 +34,7 @@ function VisualSortingApp() {
   const [highlightedBars, setHighlightedBars] = useState([]);
   const [animationIndex, setAnimationIndex] = useState(0);
   const [isSorted, setIsSorted] = useState(false);
+  const [animationSpeed, setAnimationSpeed] = useState(ANIMATION_SPEED);
 
   const animationsCount = useRef(0);
 
@@ -51,6 +54,14 @@ function VisualSortingApp() {
     //For testing
     console.log(arraysAreEqual(newArray, sortedJsArray));
   }
+
+  // function animate(){
+
+  //   console.log("animating.")
+
+  // }
+
+  // useInterval(animate, animationSpeed)
 
   function swapBars([index1, index2]) {
     const currentAnimationCycle = animationsCount.current;
@@ -92,12 +103,15 @@ function VisualSortingApp() {
         sortArray={sortArray}
         selectedAlgorithm={selectedAlgorithm}
         setSelectedAlgorithm={setSelectedAlgorithm}
+        animationSpeed={animationSpeed}
+        setAnimationSpeed={setAnimationSpeed}
       />
       <SortingVisualizer
         array={array}
         highlightedBars={highlightedBars}
         animationIndex={animationIndex}
         isSorted={isSorted}
+      
       />
     </div>
   );

@@ -16,26 +16,62 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const ButtonSection = styled.div`
+const AppBarSection = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   width: ${props => props.width || undefined};
+`;
+
+const Slider = styled.input`
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 2px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px; 
+    height: 15px; 
+    border-radius: 5px; 
+    background: #4caf50; 
+    cursor: pointer; 
+  }
+`;
+
+const SliderLabel = styled.span`
+  color: #e0e0e0;
+  margin-right: 10px;
 `;
 
 function AppBar({
   randomizeArray,
   sortArray,
   selectedAlgorithm,
-  setSelectedAlgorithm
+  setSelectedAlgorithm,
+  animationSpeed,
+  setAnimationSpeed
 }) {
+  function handleAnimationSpeedChange(evt) {
+    evt.persist();
+    setAnimationSpeed(evt.target.value);
+  }
+
   return (
     <AppBarContainer>
-      <ButtonSection>
+      <AppBarSection>
         <Button onClick={randomizeArray}>Randomize</Button>
         <Button onClick={sortArray}>Sort</Button>
-      </ButtonSection>
-      <ButtonSection width="70%">
+      </AppBarSection>
+      <AppBarSection width="70%">
         <Button
           selected={selectedAlgorithm === "mergeSort"}
           onClick={() => setSelectedAlgorithm("mergeSort")}
@@ -60,7 +96,19 @@ function AppBar({
         >
           Bubble Sort
         </Button>
-      </ButtonSection>
+      </AppBarSection>
+      <AppBarSection>
+        <SliderLabel>
+         Speed
+        </SliderLabel>
+        <Slider
+          type="range"
+          min="1"
+          max="100"
+          value={animationSpeed}
+          onChange={handleAnimationSpeedChange}
+        />
+      </AppBarSection>
     </AppBarContainer>
   );
 }
