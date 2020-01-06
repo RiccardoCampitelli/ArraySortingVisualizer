@@ -30,25 +30,20 @@ function VisualSortingApp() {
   );
 
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("mergeSort");
-  const [highlightedBars, setHighlightedBars] = useState([]);
-  const [animationIndex, setAnimationIndex] = useState(0);
   const [isSorted, setIsSorted] = useState(false);
-  const [animationSpeed, setAnimationSpeed] = useState(ANIMATION_SPEED);
-
-  const [barsToHighlight, setBarsToHighlight] = useState([]);
   const [isSorting, setIsSorting] = useState(false);
+  const [animationSpeed, setAnimationSpeed] = useState(ANIMATION_SPEED);
+  const [barsToHighlight, setBarsToHighlight] = useState([]);
 
-  const animationsCount = useRef(0);
+  const animationIndex = useRef(0);
   const animationsToComplete = useRef([]);
 
   function randomizeArray() {
     setArray(generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE));
-    setHighlightedBars([]);
-    setAnimationIndex(0);
     setIsSorted(false);
     setIsSorting(false);
     setBarsToHighlight([]);
-    animationsCount.current = 0;
+    animationIndex.current = 0;
     animationsToComplete.current = [];
   }
 
@@ -63,7 +58,7 @@ function VisualSortingApp() {
   }
 
   function animate() {
-    const currentAnimationIndex = animationsCount.current;
+    const currentAnimationIndex = animationIndex.current;
     const barsToHighlight = animationsToComplete.current[currentAnimationIndex];
     let index1 = 0;
     let index2 = 0;
@@ -87,15 +82,13 @@ function VisualSortingApp() {
 
     if (currentAnimationIndex === animationsToComplete.current.length - 1) {
       setIsSorted(true);
-      setHighlightedBars([]);
-      animationsCount.current = 0;
+      animationIndex.current = 0;
       animationsToComplete.current = [];
-      setAnimationIndex(0);
       setIsSorting(false);
       return;
     }
 
-    animationsCount.current++;
+    animationIndex.current++;
   }
 
   useInterval(animate, isSorting ? animationSpeed : null);
@@ -119,9 +112,7 @@ function VisualSortingApp() {
       />
       <SortingVisualizer
         array={array}
-        highlightedBars={highlightedBars}
         barsToHighlight={barsToHighlight}
-        animationIndex={animationIndex}
         isSorted={isSorted}
       />
     </div>

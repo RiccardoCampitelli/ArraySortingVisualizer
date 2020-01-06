@@ -24,9 +24,7 @@ const Bar = styled.div.attrs(({ height, backgroundColor }) => ({
 
 function SortingVisualizer({
   array,
-  highlightedBars,
   barsToHighlight,
-  animationIndex,
   isSorted
 }) {
   // const barsToHighlight =
