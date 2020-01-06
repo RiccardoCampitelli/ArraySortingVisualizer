@@ -1,11 +1,73 @@
+function mergeSort(array, swapBars, lowerBound, upperBound) {
 
+  lowerBound = lowerBound === undefined ? 0 : lowerBound;
+  upperBound = upperBound === undefined ? array.length - 1 : upperBound;
 
-function mergeSort(array) {
-  const newArray = [...array];
+  
+  const middleIndex = Math.floor((upperBound + lowerBound) / 2);
 
-  newArray.sort((a, b) => a - b);
+  
+  const leftLength = middleIndex - lowerBound;
+  const rightLength = upperBound - middleIndex;
 
-  return [...newArray];
+  // console.log("leftlength", leftLength, "rightlength", rightLength)
+
+  if (leftLength <= 1 || rightLength <=1) {
+    console.log("returning", lowerBound, middleIndex, upperBound)
+    return {
+      array,
+      lowerBound,
+      upperBound
+    };
+  }
+
+  console.log("not returning", lowerBound, middleIndex, upperBound)
+
+  // console.log(lowerBound, middleIndex, upperBound)
+
+  return merge(
+    array,
+    swapBars,
+    mergeSort(array, swapBars, lowerBound, middleIndex),
+    mergeSort(array, swapBars, middleIndex, upperBound)
+  );
+}
+
+function merge(
+  array,
+  swapBars,
+  { lowerBound: leftLower, upperBound: leftUpper },
+  { lowerBound: rightLower, upperBound: rightUpper }
+  // a,b
+) {
+  // console.log(a,b)
+  let index = leftLower;
+  let leftIndex = leftLower;
+  let rightIndex = rightLower;
+
+  let leftLength = leftUpper - leftLower;
+  let rightLength = rightUpper - rightLower;
+
+  console.log(leftLower, leftUpper)
+  console.log("merging", array.slice(leftLower, leftUpper), array.slice(rightLower, rightUpper))
+
+  while (leftIndex < leftUpper && rightIndex < rightUpper) {
+    if (array[leftIndex] < array[rightIndex]) {
+      swap(array, index, leftIndex);
+      swapBars([index, leftIndex])
+      leftIndex++;
+    } else {
+      swap(array, index, rightIndex);
+      swapBars([index, rightIndex])
+      rightIndex++;
+    }
+    index++;
+  }
+  console.log(array)
+  return {array,
+    lowerBound : leftLower,
+    upperBound: rightUpper
+  };
 }
 
 function quickSort(array, swapBars, leftIndex = 0, rightIndex) {
@@ -49,6 +111,7 @@ function partition(array, swapBars, leftIndex, rightIndex) {
 }
 
 function swap(array, leftIndex, rightIndex) {
+  console.log("swapping", array[leftIndex], array[rightIndex])
   const temp = array[leftIndex];
   array[leftIndex] = array[rightIndex];
   array[rightIndex] = temp;
@@ -67,20 +130,18 @@ function bubbleSort(array, swapBars) {
     hasSwapped = false;
     for (let index = 0; index < length; index++) {
       if (array[index] > array[index + 1]) {
-
-        console.log("swapping")
+        console.log("swapping");
         swapBars([index, index + 1]);
         swap(array, index, index + 1);
         hasSwapped = true;
       }
     }
 
-    length = length -1;
+    length = length - 1;
   } while (hasSwapped);
 
   return [...array];
 }
-
 
 const sortingAlgorithms = {
   mergeSort,
@@ -88,6 +149,5 @@ const sortingAlgorithms = {
   heapSort,
   bubbleSort
 };
-
 
 export default sortingAlgorithms;
