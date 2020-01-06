@@ -99,7 +99,7 @@ function AppBar({
       </AppBarSection>
       <AppBarSection>
         <SliderLabel>
-         Speed (ms)
+         Speed {animationSpeed} (ms)
         </SliderLabel>
         <Slider
           type="range"
@@ -108,6 +108,7 @@ function AppBar({
           value={animationSpeed}
           onChange={handleAnimationSpeedChange}
         />
+
       </AppBarSection>
     </AppBarContainer>
   );

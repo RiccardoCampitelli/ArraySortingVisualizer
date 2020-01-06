@@ -3,6 +3,10 @@ import uuid from "uuid";
 
 import styled from "styled-components";
 
+const SORTED_COLOR = "#56c936";
+const DEFAULT_COLOR = "lightblue";
+const HIGHLIGHT_COLOR = "pink"
+
 const BarsContainer = styled.div`
   background-color: #ebebeb;
   display: flex;
@@ -27,11 +31,7 @@ function SortingVisualizer({
   barsToHighlight,
   isSorted
 }) {
-  // const barsToHighlight =
-  //   highlightedBars.length > 0 ? highlightedBars[animationIndex] : [];
-
-  // const barColor = isSorted ? "purple" : barsToHighlight.includes()
-// console.log(barsToHighlight)
+  
   return (
     <BarsContainer>
       {array.map((bar, index) => (
@@ -39,10 +39,10 @@ function SortingVisualizer({
           height={bar}
           backgroundColor={
             isSorted
-              ? "#56c936"
+              ? SORTED_COLOR
               : barsToHighlight.includes(index)
-              ? "pink"
-              : "lightblue"
+              ? HIGHLIGHT_COLOR
+              : DEFAULT_COLOR
           }
           key={uuid()}
         />

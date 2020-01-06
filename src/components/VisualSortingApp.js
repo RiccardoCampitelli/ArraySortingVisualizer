@@ -11,7 +11,7 @@ const ARRAY_LENGTH = 100;
 const MIN_VALUE = 5;
 const MAX_VALUE = 1000;
 
-const ANIMATION_SPEED = 25;
+const ANIMATION_SPEED = 50;
 
 const generateRandomIntFromInterval = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
