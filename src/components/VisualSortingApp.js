@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import AppBar from "./AppBar";
 
-import styled from "styled-components";
 import SortingVisualizer from "./SortingVisualizer";
 import sortingAlgorithms from "../logic/sortingAlgorithms";
 import { arraysAreEqual } from "../logic/util";
@@ -36,17 +35,25 @@ function VisualSortingApp() {
   const [isSorted, setIsSorted] = useState(false);
   const [animationSpeed, setAnimationSpeed] = useState(ANIMATION_SPEED);
 
+  const [barsToHighlight, setBarsToHighlight] = useState([]);
+  const [isSorting, setIsSorting] = useState(false);
+
   const animationsCount = useRef(0);
+  const animationsToComplete = useRef([]);
 
   function randomizeArray() {
     setArray(generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE));
     setHighlightedBars([]);
-    animationsCount.current = 0;
     setAnimationIndex(0);
     setIsSorted(false);
+    setIsSorting(false);
+    setBarsToHighlight([]);
+    animationsCount.current = 0;
+    animationsToComplete.current = [];
   }
 
   function sortArray() {
+    setIsSorting(true);
     const newArray = sortingAlgorithms[selectedAlgorithm]([...array], swapBars);
 
     const sortedJsArray = [...array].sort((a, b) => a - b);
@@ -55,45 +62,49 @@ function VisualSortingApp() {
     console.log(arraysAreEqual(newArray, sortedJsArray));
   }
 
-  // function animate(){
+  function animate() {
+    const currentAnimationIndex = animationsCount.current;
+    const barsToHighlight = animationsToComplete.current[currentAnimationIndex];
+    let index1 = 0;
+    let index2 = 0;
 
-  //   console.log("animating.")
+    if (barsToHighlight !== undefined && barsToHighlight.length === 2) {
+      index1 = barsToHighlight[0];
+      index2 = barsToHighlight[1];
+    }
 
-  // }
+    setBarsToHighlight([index1, index2]);
 
-  // useInterval(animate, animationSpeed)
+    setArray(old => {
+      const newArray = [...old];
+      const temp = newArray[index1];
+
+      newArray[index1] = newArray[index2];
+      newArray[index2] = temp;
+
+      return newArray;
+    });
+
+    if (currentAnimationIndex === animationsToComplete.current.length - 1) {
+      setIsSorted(true);
+      setHighlightedBars([]);
+      animationsCount.current = 0;
+      animationsToComplete.current = [];
+      setAnimationIndex(0);
+      setIsSorting(false);
+      return;
+    }
+
+    animationsCount.current++;
+  }
+
+  useInterval(animate, isSorting ? animationSpeed : null);
 
   function swapBars([index1, index2]) {
-    const currentAnimationCycle = animationsCount.current;
-    animationsCount.current++;
-
-    const animationDelay = animationsCount.current * ANIMATION_SPEED;
-
-    setTimeout(() => {
-      setHighlightedBars(old => [...old, [index1, index2]]);
-
-      setTimeout(() => {
-        setAnimationIndex(currentAnimationCycle);
-
-        // console.log(currentAnimationCycle, animationsCount.current);
-        setArray(old => {
-          const newArray = [...old];
-          const temp = newArray[index1];
-
-          newArray[index1] = newArray[index2];
-          newArray[index2] = temp;
-
-          return newArray;
-        });
-
-        if (currentAnimationCycle === animationsCount.current - 1) {
-          setIsSorted(true);
-          setHighlightedBars([]);
-          animationsCount.current = 0;
-          setAnimationIndex(0);
-        }
-      }, animationDelay + ANIMATION_SPEED);
-    }, animationDelay);
+    animationsToComplete.current = [
+      ...animationsToComplete.current,
+      [index1, index2]
+    ];
   }
 
   return (
@@ -109,9 +120,9 @@ function VisualSortingApp() {
       <SortingVisualizer
         array={array}
         highlightedBars={highlightedBars}
+        barsToHighlight={barsToHighlight}
         animationIndex={animationIndex}
         isSorted={isSorted}
-      
       />
     </div>
   );

@@ -25,14 +25,15 @@ const Bar = styled.div.attrs(({ height, backgroundColor }) => ({
 function SortingVisualizer({
   array,
   highlightedBars,
+  barsToHighlight,
   animationIndex,
   isSorted
 }) {
-  const barsToHighlight =
-    highlightedBars.length > 0 ? highlightedBars[animationIndex] : [];
+  // const barsToHighlight =
+  //   highlightedBars.length > 0 ? highlightedBars[animationIndex] : [];
 
   // const barColor = isSorted ? "purple" : barsToHighlight.includes()
-
+// console.log(barsToHighlight)
   return (
     <BarsContainer>
       {array.map((bar, index) => (

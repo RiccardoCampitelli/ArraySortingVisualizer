@@ -27,7 +27,7 @@ const AppBarSection = styled.div`
 const Slider = styled.input`
   -webkit-appearance: none;
   appearance: none;
-  width: 100%;
+  width: 50%;
   height: 5px;
   border-radius: 2px;
   background: #d3d3d3;
@@ -99,7 +99,7 @@ function AppBar({
       </AppBarSection>
       <AppBarSection>
         <SliderLabel>
-         Speed
+         Speed (ms)
         </SliderLabel>
         <Slider
           type="range"
