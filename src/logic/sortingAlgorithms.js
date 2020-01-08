@@ -1,29 +1,26 @@
+
 function mergeSort(array, swapBars, lowerBound, upperBound) {
 
   lowerBound = lowerBound === undefined ? 0 : lowerBound;
   upperBound = upperBound === undefined ? array.length - 1 : upperBound;
 
-  
   const middleIndex = Math.floor((upperBound + lowerBound) / 2);
 
-  
   const leftLength = middleIndex - lowerBound;
   const rightLength = upperBound - middleIndex;
 
-  // console.log("leftlength", leftLength, "rightlength", rightLength)
+  if(lowerBound === upperBound)
+    return;
 
-  if (leftLength <= 1 || rightLength <=1) {
-    console.log("returning", lowerBound, middleIndex, upperBound)
+  // if (leftLength <= 1 || rightLength <=1) {
+    if(upperBound - lowerBound <= 1){
+    console.log("returning", array.slice(lowerBound, upperBound))
     return {
       array,
       lowerBound,
       upperBound
     };
   }
-
-  console.log("not returning", lowerBound, middleIndex, upperBound)
-
-  // console.log(lowerBound, middleIndex, upperBound)
 
   return merge(
     array,
@@ -38,9 +35,11 @@ function merge(
   swapBars,
   { lowerBound: leftLower, upperBound: leftUpper },
   { lowerBound: rightLower, upperBound: rightUpper }
-  // a,b
 ) {
-  // console.log(a,b)
+
+  console.log("merging", array.slice(leftLower, leftUpper), array.slice(rightLower, rightUpper))
+
+
   let index = leftLower;
   let leftIndex = leftLower;
   let rightIndex = rightLower;
@@ -48,23 +47,24 @@ function merge(
   let leftLength = leftUpper - leftLower;
   let rightLength = rightUpper - rightLower;
 
-  console.log(leftLower, leftUpper)
-  console.log("merging", array.slice(leftLower, leftUpper), array.slice(rightLower, rightUpper))
 
   while (leftIndex < leftUpper && rightIndex < rightUpper) {
     if (array[leftIndex] < array[rightIndex]) {
+      console.log("swapping", array[index],array[leftIndex])
       swap(array, index, leftIndex);
       swapBars([index, leftIndex])
       leftIndex++;
     } else {
+      // console.log("swapping", index, rightIndex)
       swap(array, index, rightIndex);
       swapBars([index, rightIndex])
       rightIndex++;
     }
     index++;
   }
-  console.log(array)
-  return {array,
+
+  return {
+    array,
     lowerBound : leftLower,
     upperBound: rightUpper
   };
@@ -111,7 +111,7 @@ function partition(array, swapBars, leftIndex, rightIndex) {
 }
 
 function swap(array, leftIndex, rightIndex) {
-  console.log("swapping", array[leftIndex], array[rightIndex])
+  // console.log("swapping", array[leftIndex], array[rightIndex])
   const temp = array[leftIndex];
   array[leftIndex] = array[rightIndex];
   array[rightIndex] = temp;

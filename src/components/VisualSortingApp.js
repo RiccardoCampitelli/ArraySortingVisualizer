@@ -7,7 +7,7 @@ import { arraysAreEqual } from "../logic/util";
 
 import useInterval from "../hooks/useInterval";
 
-const ARRAY_LENGTH = 100;
+const ARRAY_LENGTH = 10;
 const MIN_VALUE = 5;
 const MAX_VALUE = 1000;
 
