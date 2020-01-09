@@ -1,6 +1,4 @@
-
 function mergeSort(array, swapBars, lowerBound, upperBound) {
-
   lowerBound = lowerBound === undefined ? 0 : lowerBound;
   upperBound = upperBound === undefined ? array.length - 1 : upperBound;
 
@@ -9,12 +7,11 @@ function mergeSort(array, swapBars, lowerBound, upperBound) {
   const leftLength = middleIndex - lowerBound;
   const rightLength = upperBound - middleIndex;
 
-  if(lowerBound === upperBound)
-    return;
+  if (lowerBound === upperBound) return;
 
   // if (leftLength <= 1 || rightLength <=1) {
-    if(upperBound - lowerBound <= 1){
-    console.log("returning", array.slice(lowerBound, upperBound))
+  if (upperBound - lowerBound <= 1) {
+    console.log("returning", array.slice(lowerBound, upperBound));
     return {
       array,
       lowerBound,
@@ -36,9 +33,11 @@ function merge(
   { lowerBound: leftLower, upperBound: leftUpper },
   { lowerBound: rightLower, upperBound: rightUpper }
 ) {
-
-  console.log("merging", array.slice(leftLower, leftUpper), array.slice(rightLower, rightUpper))
-
+  console.log(
+    "merging",
+    array.slice(leftLower, leftUpper),
+    array.slice(rightLower, rightUpper)
+  );
 
   let index = leftLower;
   let leftIndex = leftLower;
@@ -47,17 +46,16 @@ function merge(
   let leftLength = leftUpper - leftLower;
   let rightLength = rightUpper - rightLower;
 
-
   while (leftIndex < leftUpper && rightIndex < rightUpper) {
     if (array[leftIndex] < array[rightIndex]) {
-      console.log("swapping", array[index],array[leftIndex])
+      console.log("swapping", array[index], array[leftIndex]);
       swap(array, index, leftIndex);
-      swapBars([index, leftIndex])
+      swapBars([index, leftIndex]);
       leftIndex++;
     } else {
       // console.log("swapping", index, rightIndex)
       swap(array, index, rightIndex);
-      swapBars([index, rightIndex])
+      swapBars([index, rightIndex]);
       rightIndex++;
     }
     index++;
@@ -65,7 +63,7 @@ function merge(
 
   return {
     array,
-    lowerBound : leftLower,
+    lowerBound: leftLower,
     upperBound: rightUpper
   };
 }
@@ -117,8 +115,46 @@ function swap(array, leftIndex, rightIndex) {
   array[rightIndex] = temp;
 }
 
-function heapSort(array) {
-  return [...array];
+function heapSort(array, swapBars) {
+  const length = array.length;
+  let middleIndex = Math.floor(array.length / 2);
+  let lengthMinusOne = length - 1;
+
+  while (middleIndex >= 0) {
+    makeHeap(array, swapBars, length, middleIndex);
+    middleIndex--;
+  }
+
+  while (lengthMinusOne >= 0) {
+    swap(array, 0, lengthMinusOne);
+    swapBars([0, lengthMinusOne]);
+    makeHeap(array, swapBars, lengthMinusOne, 0);
+    lengthMinusOne--;
+  }
+
+  return array;
+}
+
+function makeHeap(array, swapBars, length, index) {
+  console.log("make heap");
+  let largest = index;
+  let leftIndex = index * 2 + 1;
+  let rightIndex = leftIndex + 1;
+
+  if (leftIndex < length && array[leftIndex] > array[largest])
+    largest = leftIndex;
+
+  if (rightIndex < length && array[rightIndex] > array[largest])
+    largest = rightIndex;
+
+  if (largest !== index) {
+    swap(array, index, largest);
+    swapBars([index, largest]);
+
+    makeHeap(array, swapBars, length, largest);
+  }
+  console.log("return from make heap");
+  return array;
 }
 
 function bubbleSort(array, swapBars) {
