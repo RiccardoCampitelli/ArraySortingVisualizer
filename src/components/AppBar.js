@@ -5,6 +5,7 @@ import styled from "styled-components";
 const AppBarContainer = styled.div`
   background-color: #2b2b2b;
   height: 5vh;
+  width: 100%;
   display: flex;
   flex-direction: row;
 `;

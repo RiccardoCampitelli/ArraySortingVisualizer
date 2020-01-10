@@ -1,25 +1,15 @@
-
 function insertionSort(array, swapBars) {
-  // const length = array.length;
-
   for (let index = 1; index < array.length; index++) {
     const element = array[index];
 
-    // let secondIndex = 0;
-
-    for (let secondIndex = index -1; secondIndex >= 0; secondIndex--) {
+    for (let secondIndex = index - 1; secondIndex >= 0; secondIndex--) {
       const elementToCompare = array[secondIndex];
-      
-      if(elementToCompare > element){
 
+      if (elementToCompare > element) {
         swap(array, secondIndex, secondIndex + 1);
-        swapBars([secondIndex, secondIndex + 1])
-
+        swapBars([secondIndex, secondIndex + 1]);
       }
-
     }
-
-    
   }
 
   return array;
@@ -66,13 +56,6 @@ function partition(array, swapBars, leftIndex, rightIndex) {
 }
 
 function swap(array, leftIndex, rightIndex) {
-  console.log(
-    "swapping",
-    array[leftIndex],
-    leftIndex,
-    array[rightIndex],
-    rightIndex
-  );
   const temp = array[leftIndex];
   array[leftIndex] = array[rightIndex];
   array[rightIndex] = temp;
@@ -99,7 +82,6 @@ function heapSort(array, swapBars) {
 }
 
 function makeHeap(array, swapBars, length, index) {
-  console.log("make heap");
   let largest = index;
   let leftIndex = index * 2 + 1;
   let rightIndex = leftIndex + 1;
@@ -116,7 +98,7 @@ function makeHeap(array, swapBars, length, index) {
 
     makeHeap(array, swapBars, length, largest);
   }
-  console.log("return from make heap");
+
   return array;
 }
 
@@ -129,7 +111,6 @@ function bubbleSort(array, swapBars) {
     hasSwapped = false;
     for (let index = 0; index < length; index++) {
       if (array[index] > array[index + 1]) {
-        console.log("swapping");
         swapBars([index, index + 1]);
         swap(array, index, index + 1);
         hasSwapped = true;

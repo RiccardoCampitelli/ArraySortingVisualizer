@@ -7,6 +7,17 @@ import { arraysAreEqual } from "../logic/util";
 
 import useInterval from "../hooks/useInterval";
 
+import styled from "styled-components";
+
+const AppContainer = styled.div`
+  background-color: #ebebeb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
 const ARRAY_LENGTH = 100;
 const MIN_VALUE = 5;
 const MAX_VALUE = 1000;
@@ -54,7 +65,7 @@ function VisualSortingApp() {
     const sortedJsArray = [...array].sort((a, b) => a - b);
 
     //For testing
-  
+
     console.log(arraysAreEqual(newArray, sortedJsArray));
   }
 
@@ -102,7 +113,7 @@ function VisualSortingApp() {
   }
 
   return (
-    <div>
+    <AppContainer>
       <AppBar
         randomizeArray={randomizeArray}
         sortArray={sortArray}
@@ -116,7 +127,7 @@ function VisualSortingApp() {
         barsToHighlight={barsToHighlight}
         isSorted={isSorted}
       />
-    </div>
+    </AppContainer>
   );
 }
 
