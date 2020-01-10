@@ -40,11 +40,11 @@ const Slider = styled.input`
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 15px; 
-    height: 15px; 
-    border-radius: 5px; 
-    background: #4caf50; 
-    cursor: pointer; 
+    width: 15px;
+    height: 15px;
+    border-radius: 5px;
+    background: #4caf50;
+    cursor: pointer;
   }
 `;
 
@@ -74,10 +74,10 @@ function AppBar({
       </AppBarSection>
       <AppBarSection width="70%">
         <Button
-          selected={selectedAlgorithm === "insertionSort"}
-          onClick={() => setSelectedAlgorithm("insertionSort")}
+          selected={selectedAlgorithm === "heapSort"}
+          onClick={() => setSelectedAlgorithm("heapSort")}
         >
-          Insertion Sort
+          Heap Sort
         </Button>
         <Button
           selected={selectedAlgorithm === "quickSort"}
@@ -86,22 +86,20 @@ function AppBar({
           Quick Sort
         </Button>
         <Button
-          selected={selectedAlgorithm === "heapSort"}
-          onClick={() => setSelectedAlgorithm("heapSort")}
-        >
-          Heap Sort
-        </Button>
-        <Button
           selected={selectedAlgorithm === "bubbleSort"}
           onClick={() => setSelectedAlgorithm("bubbleSort")}
         >
           Bubble Sort
         </Button>
+        <Button
+          selected={selectedAlgorithm === "insertionSort"}
+          onClick={() => setSelectedAlgorithm("insertionSort")}
+        >
+          Insertion Sort
+        </Button>
       </AppBarSection>
       <AppBarSection>
-        <SliderLabel>
-         Speed {animationSpeed} (ms)
-        </SliderLabel>
+        <SliderLabel>Speed {animationSpeed} (ms)</SliderLabel>
         <Slider
           type="range"
           min="1"
@@ -109,7 +107,6 @@ function AppBar({
           value={animationSpeed}
           onChange={handleAnimationSpeedChange}
         />
-
       </AppBarSection>
     </AppBarContainer>
   );
