@@ -73,10 +73,10 @@ function AppBar({
       </AppBarSection>
       <AppBarSection width="70%">
         <Button
-          selected={selectedAlgorithm === "mergeSort"}
-          onClick={() => setSelectedAlgorithm("mergeSort")}
+          selected={selectedAlgorithm === "insertionSort"}
+          onClick={() => setSelectedAlgorithm("insertionSort")}
         >
-          Merge Sort
+          Insertion Sort
         </Button>
         <Button
           selected={selectedAlgorithm === "quickSort"}

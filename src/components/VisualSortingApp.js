@@ -7,7 +7,7 @@ import { arraysAreEqual } from "../logic/util";
 
 import useInterval from "../hooks/useInterval";
 
-const ARRAY_LENGTH = 100;
+const ARRAY_LENGTH = 10;
 const MIN_VALUE = 5;
 const MAX_VALUE = 1000;
 
@@ -29,7 +29,7 @@ function VisualSortingApp() {
     generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE)
   );
 
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState("mergeSort");
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState("heapSort");
   const [isSorted, setIsSorted] = useState(false);
   const [isSorting, setIsSorting] = useState(false);
   const [animationSpeed, setAnimationSpeed] = useState(ANIMATION_SPEED);
@@ -54,6 +54,7 @@ function VisualSortingApp() {
     const sortedJsArray = [...array].sort((a, b) => a - b);
 
     //For testing
+  
     console.log(arraysAreEqual(newArray, sortedJsArray));
   }
 
