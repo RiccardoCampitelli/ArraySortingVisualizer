@@ -59,13 +59,16 @@ function VisualSortingApp() {
   }
 
   function sortArray() {
+
+    if(animationIndex.current < animationsToComplete.current.length)
+      return;
+
     setIsSorting(true);
     const newArray = sortingAlgorithms[selectedAlgorithm]([...array], swapBars);
 
     const sortedJsArray = [...array].sort((a, b) => a - b);
 
     //For testing
-
     console.log(arraysAreEqual(newArray, sortedJsArray));
   }
 
@@ -112,6 +115,10 @@ function VisualSortingApp() {
     ];
   }
 
+  function toggleSorting(){
+    setIsSorting(current=> !current);
+  }
+
   return (
     <AppContainer>
       <AppBar
@@ -121,6 +128,8 @@ function VisualSortingApp() {
         setSelectedAlgorithm={setSelectedAlgorithm}
         animationSpeed={animationSpeed}
         setAnimationSpeed={setAnimationSpeed}
+        toggleSorting={toggleSorting}
+        isSorting={isSorting}
       />
       <SortingVisualizer
         array={array}

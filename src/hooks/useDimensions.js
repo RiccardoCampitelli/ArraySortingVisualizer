@@ -17,7 +17,7 @@ function getDimensionObject(node) {
 
 function useDimensions({
     liveMeasure = true
-}) {
+} = {}) {
     const [dimensions, setDimensions] = useState({});
     const [node, setNode] = useState(null);
 

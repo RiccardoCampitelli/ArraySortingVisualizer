@@ -31,7 +31,7 @@ const Bar = styled.div.attrs(({ height, width = 1, backgroundColor }) => ({
 `;
 
 function SortingVisualizer({ array, barsToHighlight, isSorted }) {
-  const [ref, { width }] = useDimensions({});
+  const [ref, { width }] = useDimensions();
 
   const barWidth = useMemo(() => Math.max(width  / (array.length *2), 2), [
     array.length,

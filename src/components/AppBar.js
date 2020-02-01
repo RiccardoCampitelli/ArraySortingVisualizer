@@ -12,9 +12,21 @@ const AppBarContainer = styled.div`
 
 const Button = styled.button`
   border: none;
+  height: 100%;
   background-color: inherit;
   color: ${props => (props.selected ? "#f7b5b5" : "#e0e0e0")};
+  border-bottom: ${props =>
+    props.selected ? "3px solid #f7b5b5" : "3px solid #2b2b2b"};
   cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    color: #f7b5b5;
+  }
+
+  transition: all 0.3s ease-in;
 `;
 
 const AppBarSection = styled.div`
@@ -53,13 +65,22 @@ const SliderLabel = styled.span`
   margin-right: 10px;
 `;
 
+//TODO:
+//only show stop and start if sorting
+//reposition buttons on navbar
+//disable algorithm buttons when sorting
+//improve speed slider
+//think about mobile (not sure what to do with bars )
+
 function AppBar({
   randomizeArray,
   sortArray,
   selectedAlgorithm,
   setSelectedAlgorithm,
   animationSpeed,
-  setAnimationSpeed
+  setAnimationSpeed,
+  toggleSorting,
+  isSorting
 }) {
   function handleAnimationSpeedChange(evt) {
     evt.persist();
@@ -71,19 +92,22 @@ function AppBar({
       <AppBarSection>
         <Button onClick={randomizeArray}>Randomize</Button>
         <Button onClick={sortArray}>Sort</Button>
+        <Button onClick={toggleSorting}>
+          {isSorting ? "Pause" : "Resume"}
+        </Button>
       </AppBarSection>
       <AppBarSection width="70%">
-        <Button
-          selected={selectedAlgorithm === "heapSort"}
-          onClick={() => setSelectedAlgorithm("heapSort")}
-        >
-          Heap Sort
-        </Button>
         <Button
           selected={selectedAlgorithm === "quickSort"}
           onClick={() => setSelectedAlgorithm("quickSort")}
         >
           Quick Sort
+        </Button>
+        <Button
+          selected={selectedAlgorithm === "heapSort"}
+          onClick={() => setSelectedAlgorithm("heapSort")}
+        >
+          Heap Sort
         </Button>
         <Button
           selected={selectedAlgorithm === "bubbleSort"}
