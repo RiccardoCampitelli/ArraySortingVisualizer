@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 
 import styled from "styled-components";
 
 import useDimensions from "../hooks/useDimensions";
+import { ScreenSizeContext } from "../context/screenSizeContext";
 
 const AppBarContainer = styled.div`
   background-color: #2b2b2b;
@@ -111,6 +112,8 @@ function AppBar({
   animationSpeed,
   setAnimationSpeed
 }) {
+  const { screenSize } = useContext(ScreenSizeContext);
+
   const [isHoveringSpeed, setIsHoveringSpeed] = useState(false);
 
   const sliderLabelRef = useRef(null);
@@ -152,32 +155,34 @@ function AppBar({
         <Button onClick={randomizeArray}>Randomize</Button>
         <Button onClick={sortArray}>Sort</Button>
       </AppBarSection>
-      <AppBarSection width="70%">
-        <Button
-          selected={selectedAlgorithm === "quickSort"}
-          onClick={() => setSelectedAlgorithm("quickSort")}
-        >
-          Quick Sort
-        </Button>
-        <Button
-          selected={selectedAlgorithm === "heapSort"}
-          onClick={() => setSelectedAlgorithm("heapSort")}
-        >
-          Heap Sort
-        </Button>
-        <Button
-          selected={selectedAlgorithm === "bubbleSort"}
-          onClick={() => setSelectedAlgorithm("bubbleSort")}
-        >
-          Bubble Sort
-        </Button>
-        <Button
-          selected={selectedAlgorithm === "insertionSort"}
-          onClick={() => setSelectedAlgorithm("insertionSort")}
-        >
-          Insertion Sort
-        </Button>
-      </AppBarSection>
+      {screenSize === "lg" && (
+        <AppBarSection width="70%">
+          <Button
+            selected={selectedAlgorithm === "quickSort"}
+            onClick={() => setSelectedAlgorithm("quickSort")}
+          >
+            Quick Sort
+          </Button>
+          <Button
+            selected={selectedAlgorithm === "heapSort"}
+            onClick={() => setSelectedAlgorithm("heapSort")}
+          >
+            Heap Sort
+          </Button>
+          <Button
+            selected={selectedAlgorithm === "bubbleSort"}
+            onClick={() => setSelectedAlgorithm("bubbleSort")}
+          >
+            Bubble Sort
+          </Button>
+          <Button
+            selected={selectedAlgorithm === "insertionSort"}
+            onClick={() => setSelectedAlgorithm("insertionSort")}
+          >
+            Insertion Sort
+          </Button>
+        </AppBarSection>
+      )}
       <AppBarSection>
         <SliderLabel
           onMouseEnter={sliderLabelMouseEnter}
