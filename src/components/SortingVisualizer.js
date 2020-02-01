@@ -15,7 +15,7 @@ const BarsContainer = styled.div`
   align-items: flex-end;
   height: 90vh;
   width: 80%;
-  padding-bottom: 5vh;
+  /* padding-top: 5vh; */
 `;
 
 const Bar = styled.div.attrs(({ height, width = 1, backgroundColor }) => ({
@@ -23,7 +23,7 @@ const Bar = styled.div.attrs(({ height, width = 1, backgroundColor }) => ({
     height: height / 10 + "%" || 0,
     width: `${width}px`,
     marginRight: `${width}px`,
-    backgroundColor
+    backgroundColor,
   }
 }))`
   /* width: 5px; */

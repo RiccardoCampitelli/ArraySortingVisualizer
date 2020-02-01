@@ -40,7 +40,7 @@ function VisualSortingApp() {
     generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE)
   );
 
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState("heapSort");
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState("quickSort");
   const [isSorted, setIsSorted] = useState(false);
   const [isSorting, setIsSorting] = useState(false);
   const [animationSpeed, setAnimationSpeed] = useState(ANIMATION_SPEED);

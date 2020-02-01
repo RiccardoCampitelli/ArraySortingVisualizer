@@ -5,9 +5,13 @@ import styled from "styled-components";
 const AppBarContainer = styled.div`
   background-color: #2b2b2b;
   height: 5vh;
+  margin-bottom: 5vh;
   width: 100%;
   display: flex;
   flex-direction: row;
+  -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.2);
 `;
 
 const Button = styled.button`
