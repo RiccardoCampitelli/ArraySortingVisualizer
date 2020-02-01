@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import AppBar from "./AppBar";
 
 import SortingVisualizer from "./SortingVisualizer";
@@ -8,6 +8,7 @@ import { arraysAreEqual } from "../logic/util";
 import useInterval from "../hooks/useInterval";
 
 import styled from "styled-components";
+import {ScreenSizeContext} from "../context/screenSizeContext";
 
 const AppContainer = styled.div`
   background-color: #ebebeb;
@@ -36,6 +37,8 @@ function generateRandomArray(length, minVal, maxVal) {
 }
 
 function VisualSortingApp() {
+  const {ref, screenSize} = useContext(ScreenSizeContext);
+
   const [array, setArray] = useState(
     generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE)
   );
@@ -115,8 +118,9 @@ function VisualSortingApp() {
     ];
   }
 
+
   return (
-    <AppContainer>
+    <AppContainer ref={ref}>
       <AppBar
         randomizeArray={randomizeArray}
         sortArray={sortArray}

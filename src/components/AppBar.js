@@ -74,7 +74,8 @@ const SliderLabel = styled.span`
 const ToolTip = styled.span`
   display: block;
   position: absolute;
-  background-color: #f7b5b5;
+  background-color: #4caf50;
+  color: #f0eeeb;
   padding: 5px;
   border-radius: 5px;
   top: ${props => (props.top ? `${props.top}px` : 0)};
@@ -89,7 +90,7 @@ const ToolTip = styled.span`
     margin-top: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent #f7b5b5 transparent;
+    border-color: transparent transparent #4caf50 transparent;
   }
 
   transition: opacity 0.5s ease-in-out;
@@ -183,7 +184,7 @@ function AppBar({
           Insertion Sort
         </Button>
       </AppBarSection>
-      <AppBarSection>
+      <AppBarSection >
         <SliderLabel
           onMouseEnter={sliderLabelMouseEnter}
           onMouseLeave={sliderLabelMouseLeave}
