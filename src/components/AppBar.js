@@ -114,7 +114,7 @@ function AppBar({
   const [isHoveringSpeed, setIsHoveringSpeed] = useState(false);
 
   const sliderLabelRef = useRef(null);
-  const [tooltipRef, dimensions] = useDimensions({});
+  const [tooltipRef, tooltipDimensions] = useDimensions({});
 
   function handleAnimationSpeedChange(evt) {
     evt.persist();
@@ -123,21 +123,16 @@ function AppBar({
 
   const sliderLabelMouseEnter = () => {
     setIsHoveringSpeed(true);
-    console.log(sliderLabelRef);
   };
 
   const sliderLabelMouseLeave = () => {
     setIsHoveringSpeed(false);
   };
 
-  // const { offsetTop, offsetLeft } = sliderLabelRef.current;
-  //scrollWidth - scrollHeight
-  // const offsetTop = sliderLabelRef.current ? sliderLabelRef.current.offsetTop + 20 : 0;
-  // const offsetLeft = sliderLabelRef.current ? sliderLabelRef.current.offsetLeft : 0;
   let top = 0;
   let left = 0;
 
-  if (sliderLabelRef.current && dimensions) {
+  if (sliderLabelRef.current && tooltipDimensions) {
     const {
       offsetTop,
       offsetLeft,
@@ -145,13 +140,12 @@ function AppBar({
       scrollHeight
     } = sliderLabelRef.current;
 
-    const { height, width } = dimensions;
+    const { height, width } = tooltipDimensions;
 
     top = offsetTop + scrollHeight / 2 + height / 2 + 10;
     left = offsetLeft + scrollWidth / 2 - width / 2;
   }
 
-  console.log(top, left);
   return (
     <AppBarContainer>
       <AppBarSection>
@@ -184,7 +178,7 @@ function AppBar({
           Insertion Sort
         </Button>
       </AppBarSection>
-      <AppBarSection >
+      <AppBarSection>
         <SliderLabel
           onMouseEnter={sliderLabelMouseEnter}
           onMouseLeave={sliderLabelMouseLeave}

@@ -37,7 +37,7 @@ function generateRandomArray(length, minVal, maxVal) {
 }
 
 function VisualSortingApp() {
-  const {ref, screenSize} = useContext(ScreenSizeContext);
+  const {ref} = useContext(ScreenSizeContext);
 
   const [array, setArray] = useState(
     generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE)
