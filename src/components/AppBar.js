@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 
 import styled from "styled-components";
+
+import useDimensions from "../hooks/useDimensions";
 
 const AppBarContainer = styled.div`
   background-color: #2b2b2b;
@@ -69,6 +71,30 @@ const SliderLabel = styled.span`
   margin-right: 10px;
 `;
 
+const ToolTip = styled.span`
+  display: block;
+  position: absolute;
+  background-color: #f7b5b5;
+  padding: 5px;
+  border-radius: 5px;
+  top: ${props => (props.top ? `${props.top}px` : 0)};
+  left: ${props => (props.left ? `${props.left}px` : 0)};
+  opacity: ${props => (props.showing ? 1 : 0)};
+
+  &::after {
+    content: " ";
+    position: absolute;
+    left: 50%;
+    bottom: 100%; /* To the right of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #f7b5b5 transparent;
+  }
+
+  transition: opacity 0.5s ease-in-out;
+`;
+
 //TODO:
 //only show stop and start if sorting
 //reposition buttons on navbar
@@ -82,23 +108,54 @@ function AppBar({
   selectedAlgorithm,
   setSelectedAlgorithm,
   animationSpeed,
-  setAnimationSpeed,
-  toggleSorting,
-  isSorting
+  setAnimationSpeed
 }) {
+  const [isHoveringSpeed, setIsHoveringSpeed] = useState(false);
+
+  const sliderLabelRef = useRef(null);
+  const [tooltipRef, dimensions] = useDimensions({});
+
   function handleAnimationSpeedChange(evt) {
     evt.persist();
     setAnimationSpeed(evt.target.value);
   }
 
+  const sliderLabelMouseEnter = () => {
+    setIsHoveringSpeed(true);
+    console.log(sliderLabelRef);
+  };
+
+  const sliderLabelMouseLeave = () => {
+    setIsHoveringSpeed(false);
+  };
+
+  // const { offsetTop, offsetLeft } = sliderLabelRef.current;
+  //scrollWidth - scrollHeight
+  // const offsetTop = sliderLabelRef.current ? sliderLabelRef.current.offsetTop + 20 : 0;
+  // const offsetLeft = sliderLabelRef.current ? sliderLabelRef.current.offsetLeft : 0;
+  let top = 0;
+  let left = 0;
+
+  if (sliderLabelRef.current && dimensions) {
+    const {
+      offsetTop,
+      offsetLeft,
+      scrollWidth,
+      scrollHeight
+    } = sliderLabelRef.current;
+
+    const { height, width } = dimensions;
+
+    top = offsetTop + scrollHeight / 2 + height / 2 + 10;
+    left = offsetLeft + scrollWidth / 2 - width / 2;
+  }
+
+  console.log(top, left);
   return (
     <AppBarContainer>
       <AppBarSection>
         <Button onClick={randomizeArray}>Randomize</Button>
         <Button onClick={sortArray}>Sort</Button>
-        <Button onClick={toggleSorting}>
-          {isSorting ? "Pause" : "Resume"}
-        </Button>
       </AppBarSection>
       <AppBarSection width="70%">
         <Button
@@ -127,7 +184,21 @@ function AppBar({
         </Button>
       </AppBarSection>
       <AppBarSection>
-        <SliderLabel>Speed {animationSpeed} (ms)</SliderLabel>
+        <SliderLabel
+          onMouseEnter={sliderLabelMouseEnter}
+          onMouseLeave={sliderLabelMouseLeave}
+          ref={sliderLabelRef}
+        >
+          {animationSpeed} (ms)
+        </SliderLabel>
+        <ToolTip
+          showing={isHoveringSpeed}
+          ref={tooltipRef}
+          top={top}
+          left={left}
+        >
+          Animation Speed
+        </ToolTip>
         <Slider
           type="range"
           min="1"

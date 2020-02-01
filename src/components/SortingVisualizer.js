@@ -23,7 +23,7 @@ const Bar = styled.div.attrs(({ height, width = 1, backgroundColor }) => ({
     height: height / 10 + "%" || 0,
     width: `${width}px`,
     marginRight: `${width}px`,
-    backgroundColor,
+    backgroundColor
   }
 }))`
   /* width: 5px; */
@@ -33,11 +33,12 @@ const Bar = styled.div.attrs(({ height, width = 1, backgroundColor }) => ({
 function SortingVisualizer({ array, barsToHighlight, isSorted }) {
   const [ref, { width }] = useDimensions();
 
-  const barWidth = useMemo(() => Math.max(width  / (array.length *2), 2), [
-    array.length,
-    width
-  ]);
+  const calculatedBarWidth = useMemo(
+    () => Math.max(width / (array.length * 2), 2),
+    [array.length, width]
+  );
 
+  const barWidth = calculatedBarWidth ? calculatedBarWidth : 2;
 
   return (
     <BarsContainer ref={ref}>

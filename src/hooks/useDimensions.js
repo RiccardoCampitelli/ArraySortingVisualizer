@@ -43,7 +43,7 @@ function useDimensions({
                 };
             }
         }
-    }, [node]);
+    }, [liveMeasure, node]);
 
     return [ref, dimensions, node];
 }

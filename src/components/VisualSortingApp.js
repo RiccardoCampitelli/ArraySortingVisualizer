@@ -115,10 +115,6 @@ function VisualSortingApp() {
     ];
   }
 
-  function toggleSorting(){
-    setIsSorting(current=> !current);
-  }
-
   return (
     <AppContainer>
       <AppBar
@@ -128,7 +124,6 @@ function VisualSortingApp() {
         setSelectedAlgorithm={setSelectedAlgorithm}
         animationSpeed={animationSpeed}
         setAnimationSpeed={setAnimationSpeed}
-        toggleSorting={toggleSorting}
         isSorting={isSorting}
       />
       <SortingVisualizer
