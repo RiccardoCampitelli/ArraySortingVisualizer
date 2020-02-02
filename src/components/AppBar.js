@@ -5,6 +5,10 @@ import styled from "styled-components";
 import useDimensions from "../hooks/useDimensions";
 import { ScreenSizeContext } from "../context/screenSizeContext";
 
+import Dropdown from "./Dropdown";
+
+const MAX_ANIMATION_SPEED = 200;
+
 const AppBarContainer = styled.div`
   background-color: #2b2b2b;
   height: 5vh;
@@ -155,7 +159,7 @@ function AppBar({
         <Button onClick={randomizeArray}>Randomize</Button>
         <Button onClick={sortArray}>Sort</Button>
       </AppBarSection>
-      {screenSize === "lg" && (
+      {screenSize === "lg" ? (
         <AppBarSection width="70%">
           <Button
             selected={selectedAlgorithm === "quickSort"}
@@ -182,27 +186,34 @@ function AppBar({
             Insertion Sort
           </Button>
         </AppBarSection>
+      ) : (
+        <Dropdown options={["one","two","three"]}/>
       )}
       <AppBarSection>
-        <SliderLabel
-          onMouseEnter={sliderLabelMouseEnter}
-          onMouseLeave={sliderLabelMouseLeave}
-          ref={sliderLabelRef}
-        >
-          {animationSpeed} (ms)
-        </SliderLabel>
-        <ToolTip
-          showing={isHoveringSpeed}
-          ref={tooltipRef}
-          top={top}
-          left={left}
-        >
-          Animation Speed
-        </ToolTip>
+        {screenSize === "lg" && (
+          <>
+            <SliderLabel
+              onMouseEnter={sliderLabelMouseEnter}
+              onMouseLeave={sliderLabelMouseLeave}
+              ref={sliderLabelRef}
+            >
+              {animationSpeed} (ms)
+            </SliderLabel>
+            <ToolTip
+              showing={isHoveringSpeed}
+              ref={tooltipRef}
+              top={top}
+              left={left}
+            >
+              Animation Speed
+            </ToolTip>
+          </>
+        )}
         <Slider
           type="range"
-          min="1"
-          max="100"
+          min={10}
+          step={10}
+          max={MAX_ANIMATION_SPEED}
           value={animationSpeed}
           onChange={handleAnimationSpeedChange}
         />

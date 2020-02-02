@@ -23,7 +23,8 @@ const ARRAY_LENGTH = 100;
 const MIN_VALUE = 5;
 const MAX_VALUE = 1000;
 
-const ANIMATION_SPEED = 50;
+const DEFAULT_ANIMATION_SPEED = 100;
+// const MAX_ANIMATION_SPEED = 200;
 
 const generateRandomIntFromInterval = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
@@ -46,7 +47,7 @@ function VisualSortingApp() {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("quickSort");
   const [isSorted, setIsSorted] = useState(false);
   const [isSorting, setIsSorting] = useState(false);
-  const [animationSpeed, setAnimationSpeed] = useState(ANIMATION_SPEED);
+  const [animationSpeed, setAnimationSpeed] = useState(DEFAULT_ANIMATION_SPEED);
   const [barsToHighlight, setBarsToHighlight] = useState([]);
 
   const animationIndex = useRef(0);
