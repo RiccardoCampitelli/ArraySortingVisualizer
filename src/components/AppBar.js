@@ -128,7 +128,7 @@ function AppBar({
     setAnimationSpeed(evt.target.value);
   }
 
-  const sliderSectionMouseEnter = () => { 
+  const sliderSectionMouseEnter = () => {
     setIsHoveringSpeed(true);
   };
 
@@ -205,15 +205,10 @@ function AppBar({
           value={animationSpeed}
           onChange={handleAnimationSpeedChange}
         />
-        <ToolTip
-          showing={isHoveringSpeed}
-          ref={tooltipRef}
-          top={top}
-          left={left}
-        >
-          Animation Speed
-        </ToolTip>
       </AppBarSection>
+      <ToolTip showing={isHoveringSpeed} ref={tooltipRef} top={top} left={left}>
+        Animation Speed
+      </ToolTip>
     </AppBarContainer>
   );
 }

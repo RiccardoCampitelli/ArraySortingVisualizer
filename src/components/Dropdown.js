@@ -11,11 +11,12 @@ const DropdownContainer = styled.div`
 
 const OptionsContainer = styled.div`
   display: block;
+  border-radius: 5px;
   position: absolute;
   background-color: #f1f1f1;
   min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 2;
 `;
 
 const DropdownButton = styled.button`
@@ -43,7 +44,6 @@ const Option = styled.button`
   background-color: #2b2b2b;
   color: #e0e0e0;
   cursor: pointer;
-  z-index: 2;
 
   border: none;
 
@@ -75,7 +75,6 @@ const Dropdown = ({ options }) => {
   const toggleOpen = () => {
     setOpen(open => !open);
   };
-
 
   //TODO: Add click outside listener
   return (
