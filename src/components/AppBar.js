@@ -80,12 +80,14 @@ const ToolTip = styled.span`
   display: block;
   position: absolute;
   background-color: #4caf50;
+  text-align: center;
   color: #f0eeeb;
   padding: 5px;
   border-radius: 5px;
   top: ${props => (props.top ? `${props.top}px` : 0)};
   left: ${props => (props.left ? `${props.left}px` : 0)};
   opacity: ${props => (props.showing ? 1 : 0)};
+  cursor: default;
 
   &::after {
     content: " ";

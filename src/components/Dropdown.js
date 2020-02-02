@@ -7,13 +7,14 @@ import uuid from "uuid";
 const DropdownContainer = styled.div`
   position: relative;
   display: inline-block;
+  margin: auto; 
 `;
 
 const OptionsContainer = styled.div`
   display: block;
   border-radius: 5px;
   position: absolute;
-  background-color: #f1f1f1;
+  background-color: #2b2b2b;
   min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 2;
@@ -41,7 +42,8 @@ const DropdownButton = styled.button`
 const Option = styled.button`
   display: block;
   width: 100%;
-  background-color: #2b2b2b;
+  height: 20px;
+  background-color: inherit;
   color: #e0e0e0;
   cursor: pointer;
 
