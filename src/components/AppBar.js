@@ -128,11 +128,11 @@ function AppBar({
     setAnimationSpeed(evt.target.value);
   }
 
-  const sliderLabelMouseEnter = () => {
+  const sliderSectionMouseEnter = () => { 
     setIsHoveringSpeed(true);
   };
 
-  const sliderLabelMouseLeave = () => {
+  const sliderSectionMouseLeave = () => {
     setIsHoveringSpeed(false);
   };
 
@@ -187,27 +187,15 @@ function AppBar({
           </Button>
         </AppBarSection>
       ) : (
-        <Dropdown options={["one","two","three"]}/>
+        <Dropdown options={["one", "two", "three"]} />
       )}
-      <AppBarSection>
+      <AppBarSection
+        ref={sliderLabelRef}
+        onMouseEnter={sliderSectionMouseEnter}
+        onMouseLeave={sliderSectionMouseLeave}
+      >
         {screenSize === "lg" && (
-          <>
-            <SliderLabel
-              onMouseEnter={sliderLabelMouseEnter}
-              onMouseLeave={sliderLabelMouseLeave}
-              ref={sliderLabelRef}
-            >
-              {animationSpeed} (ms)
-            </SliderLabel>
-            <ToolTip
-              showing={isHoveringSpeed}
-              ref={tooltipRef}
-              top={top}
-              left={left}
-            >
-              Animation Speed
-            </ToolTip>
-          </>
+          <SliderLabel>{animationSpeed} (ms)</SliderLabel>
         )}
         <Slider
           type="range"
@@ -217,6 +205,14 @@ function AppBar({
           value={animationSpeed}
           onChange={handleAnimationSpeedChange}
         />
+        <ToolTip
+          showing={isHoveringSpeed}
+          ref={tooltipRef}
+          top={top}
+          left={left}
+        >
+          Animation Speed
+        </ToolTip>
       </AppBarSection>
     </AppBarContainer>
   );
