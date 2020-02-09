@@ -7,7 +7,7 @@ import uuid from "uuid";
 const DropdownContainer = styled.div`
   position: relative;
   display: inline-block;
-  margin: auto; 
+  margin: auto;
 `;
 
 const OptionsContainer = styled.div`
@@ -49,6 +49,8 @@ const Option = styled.button`
 
   border: none;
 
+  color: ${props => (props.selected ? "#f7b5b5" : "#e0e0e0")};
+
   &:focus {
     outline: none;
   }
@@ -71,24 +73,39 @@ const DownArrow = () => {
   return <ArrowLabel>▼</ArrowLabel>;
 };
 
-const Dropdown = ({ options }) => {
+const Dropdown = ({ options, onOptionClick, selectedAlgorithm }) => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => {
     setOpen(open => !open);
   };
 
+  const handleOptionClick = option => {
+    onOptionClick(option);
+    setOpen(false);
+  };
+
+  const selectedAlgorithmName = options.find(x => x.value === selectedAlgorithm).label;
+
   //TODO: Add click outside listener
   return (
     <>
       <DropdownContainer onMouseLeave={toggleOpen} onMouseEnter={toggleOpen}>
         <DropdownButton open={open}>
-          Algorithms <DownArrow />
+          {selectedAlgorithmName} <DownArrow />
         </DropdownButton>
         <OptionsContainer>
           {options &&
             open &&
-            options.map(option => <Option key={uuid()}>{option}</Option>)}
+            options.map(option => (
+              <Option
+                onClick={() => handleOptionClick(option.value)}
+                selected={selectedAlgorithm === option.value}
+                key={uuid()}
+              >
+                {option.label}
+              </Option>
+            ))}
         </OptionsContainer>
       </DropdownContainer>
     </>

@@ -110,6 +110,25 @@ const ToolTip = styled.span`
 //improve speed slider
 //think about mobile (not sure what to do with bars )
 
+const dropDownOptions = [
+  {
+    label: "Quick Sort",
+    value: "quickSort"
+  },
+  {
+    label: "Heap Sort",
+    value: "heapSort"
+  },
+  {
+    label: "Bubble Sort",
+    value: "bubbleSort"
+  },
+  {
+    label: "Insertion Sort",
+    value: "insertionSort"
+  }
+];
+
 function AppBar({
   randomizeArray,
   sortArray,
@@ -155,6 +174,10 @@ function AppBar({
     left = offsetLeft + scrollWidth / 2 - width / 2;
   }
 
+  const handleDropdownOptionClick = option => {
+    setSelectedAlgorithm(option);
+  };
+
   return (
     <AppBarContainer>
       <AppBarSection>
@@ -189,7 +212,11 @@ function AppBar({
           </Button>
         </AppBarSection>
       ) : (
-        <Dropdown options={["one", "two", "three"]} />
+        <Dropdown
+          onOptionClick={handleDropdownOptionClick}
+          selectedAlgorithm={selectedAlgorithm}
+          options={dropDownOptions}
+        />
       )}
       <AppBarSection
         ref={sliderLabelRef}
