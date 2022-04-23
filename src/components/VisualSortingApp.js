@@ -71,9 +71,6 @@ function VisualSortingApp() {
     const newArray = sortingAlgorithms[selectedAlgorithm]([...array], swapBars);
 
     const sortedJsArray = [...array].sort((a, b) => a - b);
-
-    //For testing
-    console.log(arraysAreEqual(newArray, sortedJsArray));
   }
 
   function animate() {
